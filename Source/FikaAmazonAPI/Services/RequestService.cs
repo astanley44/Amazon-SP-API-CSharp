@@ -338,7 +338,11 @@ namespace FikaAmazonAPI.Services
 
         protected void AddJsonBody(object jsonData)
         {
-            var json = JsonConvert.SerializeObject(jsonData);
+        // Amazon will not accept null values in json body
+                var json = JsonConvert.SerializeObject(jsonData,new JsonSerializerSettings
+                {
+                NullValueHandling = NullValueHandling.Ignore
+                });
             Request.AddJsonBody(json);
         }
 
